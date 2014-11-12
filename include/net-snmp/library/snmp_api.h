@@ -4,7 +4,7 @@
  */
 /*
  * Portions of this file are copyrighted by:
- * Copyright © 2003 Sun Microsystems, Inc. All rights reserved.
+ * Copyright ï¿½ 2003 Sun Microsystems, Inc. All rights reserved.
  * Use is subject to license terms specified in the COPYING file
  * distributed with the Net-SNMP package.
  */
@@ -13,7 +13,7 @@
 
 /*
  * @file snmp_api.h - API for access to snmp.
- * 
+ *
  * @addtogroup library
  *
  * Caution: when using this library in a multi-threaded application,
@@ -127,19 +127,19 @@ typedef struct request_list {
 #define SNMP_SEC_PARAM_BUF_SIZE    256
 
     /*
-     * set to one to ignore unauthenticated Reports 
+     * set to one to ignore unauthenticated Reports
      */
 #define SNMPV3_IGNORE_UNAUTH_REPORTS 0
 
     /*
-     * authoritative engine definitions 
+     * authoritative engine definitions
      */
 #define SNMP_SESS_NONAUTHORITATIVE 0    /* should be 0 to default to this */
 #define SNMP_SESS_AUTHORITATIVE    1    /* don't learn engineIDs */
 #define SNMP_SESS_UNKNOWNAUTH      2    /* sometimes (like NRs) */
 
     /*
-     * to determine type of Report from varbind_list 
+     * to determine type of Report from varbind_list
      */
 #define REPORT_STATS_LEN  9	/* Length of prefix for MPD/USM report statistic objects */
 #define REPORT_STATS_LEN2 8	/* Length of prefix for Target report statistic objects */
@@ -328,8 +328,9 @@ typedef struct request_list {
 #define NETSNMP_CALLBACK_OP_SEND_FAILED		3
 #define NETSNMP_CALLBACK_OP_CONNECT		4
 #define NETSNMP_CALLBACK_OP_DISCONNECT		5
-
+    NETSNMP_IMPORT
     long            snmp_get_next_msgid(void);
+    NETSNMP_IMPORT
     long            snmp_get_next_reqid(void);
     NETSNMP_IMPORT
     long            snmp_get_next_sessid(void);
@@ -339,6 +340,7 @@ typedef struct request_list {
     NETSNMP_IMPORT
     int             snmp_oid_compare(const oid *, size_t, const oid *,
                                      size_t);
+    NETSNMP_IMPORT
     int             snmp_oid_ncompare(const oid *, size_t, const oid *,
                                       size_t, size_t);
     NETSNMP_IMPORT
@@ -354,6 +356,7 @@ typedef struct request_list {
     NETSNMP_IMPORT
     int             netsnmp_oid_equals(const oid *, size_t, const oid *,
                                        size_t);
+    NETSNMP_IMPORT
     int             netsnmp_oid_tree_equals(const oid *, size_t, const oid *,
                                             size_t);
     NETSNMP_IMPORT
@@ -364,26 +367,36 @@ typedef struct request_list {
                                             const oid * in_name2, size_t len2);
     NETSNMP_IMPORT
     void            init_snmp(const char *);
+
+    NETSNMP_IMPORT
     u_char         *snmp_pdu_build(netsnmp_pdu *, u_char *, size_t *);
 #ifdef NETSNMP_USE_REVERSE_ASNENCODING
+    NETSNMP_IMPORT
     u_char         *snmp_pdu_rbuild(netsnmp_pdu *, u_char *, size_t *);
 #endif
+    NETSNMP_IMPORT
     int             snmpv3_parse(netsnmp_pdu *, u_char *, size_t *,
                                  u_char **, netsnmp_session *);
+    NETSNMP_IMPORT
     int             snmpv3_packet_build(netsnmp_session *,
                                         netsnmp_pdu *pdu, u_char * packet,
                                         size_t * out_length,
                                         u_char * pdu_data,
                                         size_t pdu_data_len);
+    NETSNMP_IMPORT
     int             snmpv3_packet_rbuild(netsnmp_session *,
                                          netsnmp_pdu *pdu, u_char * packet,
                                          size_t * out_length,
                                          u_char * pdu_data,
                                          size_t pdu_data_len);
+    NETSNMP_IMPORT
     int             snmpv3_make_report(netsnmp_pdu *pdu, int error);
+    NETSNMP_IMPORT
     int             snmpv3_get_report_type(netsnmp_pdu *pdu);
+    NETSNMP_IMPORT
     int             snmp_pdu_parse(netsnmp_pdu *pdu, u_char * data,
                                    size_t * length);
+    NETSNMP_IMPORT
     u_char         *snmpv3_scopedPDU_parse(netsnmp_pdu *pdu, u_char * cp,
                                            size_t * length);
     NETSNMP_IMPORT
@@ -399,14 +412,15 @@ typedef struct request_list {
                                  const char *);
     NETSNMP_IMPORT
     oid            *snmp_duplicate_objid(const oid * objToCopy, size_t);
-    NETSNMP_IMPORT
 
 #ifndef NETSNMP_FEATURE_REMOVE_STATISTICS
+    NETSNMP_IMPORT
     u_int           snmp_increment_statistic(int which);
     NETSNMP_IMPORT
     u_int           snmp_increment_statistic_by(int which, int count);
     NETSNMP_IMPORT
     u_int           snmp_get_statistic(int which);
+    NETSNMP_IMPORT
     void            snmp_init_statistics(void);
 #else /* NETSNMP_FEATURE_REMOVE_STATISTICS */
 
@@ -416,22 +430,23 @@ typedef struct request_list {
 #define snmp_init_statistics()
 
 #endif
-
+    NETSNMP_IMPORT
     int             create_user_from_session(netsnmp_session * session);
+    NETSNMP_IMPORT
     int snmpv3_probe_contextEngineID_rfc5343(void *slp,
                                              netsnmp_session *session);
 
     /*
-     * New re-allocating reverse encoding functions.  
+     * New re-allocating reverse encoding functions.
      */
 #ifdef NETSNMP_USE_REVERSE_ASNENCODING
-
+    NETSNMP_IMPORT
     int        snmpv3_packet_realloc_rbuild(u_char ** pkt, size_t * pkt_len,
                                      size_t * offset,
                                      netsnmp_session * session,
                                      netsnmp_pdu *pdu, u_char * pdu_data,
                                      size_t pdu_data_len);
-
+    NETSNMP_IMPORT
     int        snmp_pdu_realloc_rbuild(u_char ** pkt, size_t * pkt_len,
                                 size_t * offset, netsnmp_pdu *pdu);
 #endif
@@ -441,7 +456,7 @@ typedef struct request_list {
 struct netsnmp_transport_s;
 
     /*
-     * Extended open; fpre_parse has changed.  
+     * Extended open; fpre_parse has changed.
      */
 
     NETSNMP_IMPORT
@@ -478,15 +493,18 @@ struct netsnmp_transport_s;
     void            netsnmp_sess_log_error(int priority,
                                            const char *prog_string,
                                            netsnmp_session * ss);
+
+    NETSNMP_IMPORT
     const char *    snmp_pdu_type(int type);
 
     /*
      * Return the netsnmp_transport structure associated with the given opaque
-     * pointer.  
+     * pointer.
      */
 
     NETSNMP_IMPORT
     struct netsnmp_transport_s *snmp_sess_transport(void *);
+    NETSNMP_IMPORT
     void            snmp_sess_transport_set(void *,
 					    struct netsnmp_transport_s *);
 
@@ -499,18 +517,18 @@ struct netsnmp_transport_s;
                                            struct netsnmp_transport_s *transport);
 
     /*
-     * EXTENDED SESSION API ------------------------------------------ 
-     * 
-     * snmp_sess_add_ex, snmp_sess_add, snmp_add 
-     * 
+     * EXTENDED SESSION API ------------------------------------------
+     *
+     * snmp_sess_add_ex, snmp_sess_add, snmp_add
+     *
      * Analogous to snmp_open family of functions, but taking an
      * netsnmp_transport pointer as an extra argument.  Unlike snmp_open et
      * al. it doesn't attempt to interpret the in_session->peername as a
      * transport endpoint specifier, but instead uses the supplied transport.
      * JBPN
-     * 
+     *
      */
-
+    NETSNMP_IMPORT
     void           *snmp_sess_add_ex(netsnmp_session *,
                                      struct netsnmp_transport_s *,
                                      int (*fpre_parse) (netsnmp_session *,
@@ -537,6 +555,7 @@ struct netsnmp_transport_s;
                                                                   void *,
                                                                   size_t));
 
+    NETSNMP_IMPORT
     void           *snmp_sess_add(netsnmp_session *,
                                   struct netsnmp_transport_s *,
                                   int (*fpre_parse) (netsnmp_session *,
@@ -580,19 +599,19 @@ struct netsnmp_transport_s;
                                                                 size_t)
         );
     /*
-     * end single session API 
+     * end single session API
      */
 
     /*
-     * generic statistic counters 
+     * generic statistic counters
      */
 
     /*
-     * snmpv3 statistics 
+     * snmpv3 statistics
      */
 
     /*
-     * mpd stats 
+     * mpd stats
      */
 #define   STAT_SNMPUNKNOWNSECURITYMODELS     0
 #define   STAT_SNMPINVALIDMSGS               1
@@ -601,7 +620,7 @@ struct netsnmp_transport_s;
 #define   STAT_MPD_STATS_END                 STAT_SNMPUNKNOWNPDUHANDLERS
 
     /*
-     * usm stats 
+     * usm stats
      */
 #define   STAT_USMSTATSUNSUPPORTEDSECLEVELS  3
 #define   STAT_USMSTATSNOTINTIMEWINDOWS      4
@@ -613,7 +632,7 @@ struct netsnmp_transport_s;
 #define   STAT_USM_STATS_END                 STAT_USMSTATSDECRYPTIONERRORS
 
     /*
-     * snmp counters 
+     * snmp counters
      */
 #define  STAT_SNMPINPKTS                     9
 #define  STAT_SNMPOUTPKTS                    10
@@ -622,7 +641,7 @@ struct netsnmp_transport_s;
 #define  STAT_SNMPINBADCOMMUNITYUSES         13
 #define  STAT_SNMPINASNPARSEERRS             14
     /*
-     * #define  STAT_SNMPINBADTYPES              15 
+     * #define  STAT_SNMPINBADTYPES              15
      */
 #define  STAT_SNMPINTOOBIGS                  16
 #define  STAT_SNMPINNOSUCHNAMES              17
@@ -640,7 +659,7 @@ struct netsnmp_transport_s;
 #define  STAT_SNMPOUTNOSUCHNAMES             29
 #define  STAT_SNMPOUTBADVALUES               30
     /*
-     * #define  STAT_SNMPOUTREADONLYS            31 
+     * #define  STAT_SNMPOUTREADONLYS            31
      */
 #define  STAT_SNMPOUTGENERRS                 32
 #define  STAT_SNMPOUTGETREQUESTS             33
@@ -649,7 +668,7 @@ struct netsnmp_transport_s;
 #define  STAT_SNMPOUTGETRESPONSES            36
 #define  STAT_SNMPOUTTRAPS                   37
     /*
-     * AUTHTRAPENABLE                            38 
+     * AUTHTRAPENABLE                            38
      */
 #define  STAT_SNMPSILENTDROPS		     39
 #define  STAT_SNMPPROXYDROPS		     40
@@ -657,7 +676,7 @@ struct netsnmp_transport_s;
 #define  STAT_SNMP_STATS_END                 STAT_SNMPPROXYDROPS
 
     /*
-     * target mib counters 
+     * target mib counters
      */
 #define  STAT_SNMPUNAVAILABLECONTEXTS	     41
 #define  STAT_SNMPUNKNOWNCONTEXTS	     42
